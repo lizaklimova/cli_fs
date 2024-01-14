@@ -50,3 +50,19 @@ export const getFiles = async () => {
     console.log(error);
   }
 };
+
+export const getFileInfo = async (fileName) => {
+  try {
+    const files = await fs.readdir(folderPath);
+    const fileTrueName = files.find(file => file === fileName);
+    if (!fileTrueName) {
+      log(chalk.bgRed(`File ${fileName} doesn't exist`));
+      return;
+    }
+    const filePath = path.resolve('./files', fileName);
+    const fileText = await fs.readFile(filePath, 'utf-8');
+    console.log(fileText);
+  } catch (error) {
+    console.log(error);
+  }
+};
